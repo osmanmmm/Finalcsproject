@@ -1,54 +1,75 @@
-from graphics import * 
+from graphics import *
 import math 
+from random import randint
+from time import sleep
 
-class Planet: 
-    def __init__(self, x, y, color, radius):
-        self.x = x
-        self.y = y
-        self.color = color 
-        self.radius = radius
-        self.circle = Circle(Point(self.x, self.y), self.radius)
-        self.circle.setFill(self.color)
-    
-    def draw(self, window): 
-        self.circle.draw(window)
-    
-class Orbit: 
-    def __init__(self, x, y, xradius, yradius):
-        self.x = x
-        self.y = y
-        self.xradius = xradius
-        self.yradius = yradius
-        self.oval = Oval(Point(self.x - self.xradius, self.y - self.yradius), 
-                         Point(self.x + self.xradius, self.y + self.yradius))
-        self.oval.setOutline("white")
-    
-    def draw(self, window): 
-        self.oval.draw(window)
+
+class Planet:
+   def __init__(self, x, y, color, radius):
+       self.x = x
+       self.y = y
+       self.color = color
+       self.radius = radius
+       self.Circle = Circle(Point(self.x, self.y), self.radius)
+       self.Circle.setFill(self.color)
+
+
+   def draw(self, window):
+       self.Circle.draw(window)
+
+
+class Orbit:
+   def __init__(self, x, y, oradius):
+       self.x = x
+       self.y = y
+       self.oradius = oradius
+       self.Circle = Circle(Point(self.x, self.y), self.oradius)
+       self.Circle.setOutline("white")
+
+
+   def draw(self, window):
+       self.Circle.draw(window)
+
 
 window = GraphWin("Solar system", 1000, 1000)
-window.setBackground("Black")
+window.setBackground("black")
+
 
 sun = Planet(500, 500, color_rgb(253, 184, 19), 50)
 sun.draw(window)
 
-mercury = Planet(400, 500, color_rgb(151, 151, 159), 20)
+
+mercury = Planet(500 + 100, 500, color_rgb(219, 206, 202), 20)
 mercury.draw(window)
 
-venus = Planet(300, 500, color_rgb(139, 125, 130), 30)
+
+venus = Planet(500 + 250, 500, color_rgb(255, 198, 73), 30)
 venus.draw(window)
 
-earth = Planet(200, 500, color_rgb(13, 152, 186), 50)
+
+earth = Planet(500 - 350, 500, color_rgb(52, 165, 111), 50)
 earth.draw(window)
 
-mercury_orbit = Orbit(500, 500, 100, 80)
+
+mercury_orbit = Orbit(500, 500, 100)
 mercury_orbit.draw(window)
-
-venus_orbit = Orbit(450, 500, 250, 200)
+venus_orbit = Orbit(500, 500, 250)
 venus_orbit.draw(window)
-
-earth_orbit = Orbit(225, 500, 200, 150)
+earth_orbit = Orbit(500, 500, 350)
 earth_orbit.draw(window)
+
+for i in range(300):
+   x = randint(0, 1000)
+   y = randint(0, 1000)
+   message = Text(Point(x, y), "*")
+   message.setSize(10)
+   message.setTextColor("white")
+   message.draw(window)
+   sleep(0.1)
+   message.move(randint(-200, 200), randint(-200, 200))
+
+
+
 
 window.getMouse()
 window.close()
